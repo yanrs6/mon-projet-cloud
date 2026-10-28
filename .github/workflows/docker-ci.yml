@@ -1,0 +1,24 @@
+name: Mon premier pipeline CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le code
+        uses: actions/checkout@v4
+
+      - name: Verifier les fichiers
+        run: |
+          test -f index.html
+          test -f Dockerfile
+          echo "Les fichiers existent."
+
+      - name: Construire l'image Docker
+        run: docker build -t mon-application-cloud:1.0 .
