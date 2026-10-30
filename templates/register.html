@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Créer un compte</title>
+</head>
+<body>
+    <h1>Créer un compte</h1>
+
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <label>Nom d'utilisateur</label><br>
+        <input name="username" required minlength="3" maxlength="30"><br><br>
+
+        <label>Mot de passe (12 caractères minimum)</label><br>
+        <input type="password" name="password" required minlength="12"><br><br>
+
+        <button type="submit">Créer mon compte</button>
+    </form>
+
+    <p><a href="{{ url_for('login') }}">J'ai déjà un compte</a></p>
+</body>
+</html>

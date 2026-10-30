@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CloudDevOps | Accueil</title>
+</head>
+<body>
+    <h1>CloudDevOps</h1>
+    <p>Bienvenue sur notre application Cloud.</p>
+    <p>Crée un compte pour enregistrer tes propres notes.</p>
+
+    <a href="{{ url_for('register') }}">Créer un compte</a>
+    <br><br>
+    <a href="{{ url_for('login') }}">Se connecter</a>
+
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</body>
+</html>

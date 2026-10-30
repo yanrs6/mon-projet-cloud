@@ -16,9 +16,14 @@ jobs:
 
       - name: Verifier les fichiers
         run: |
-          test -f index.html
+          test -f app.py
+          test -f requirements.txt
           test -f Dockerfile
-          echo "Les fichiers existent."
+          test -f templates/index.html
+          test -f templates/register.html
+          test -f templates/login.html
+          test -f templates/dashboard.html
+          echo "Tous les fichiers necessaires sont presents."
 
       - name: Configurer Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -35,5 +40,5 @@ jobs:
           context: .
           push: true
           tags: |
-            yanrs6/mon-application-cloud:1.0
+            yanrs6/mon-application-cloud:2.0
             yanrs6/mon-application-cloud:latest

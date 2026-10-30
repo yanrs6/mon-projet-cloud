@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon espace personnel</title>
+</head>
+<body>
+    <h1>Bienvenue {{ session["username"] }} !</h1>
+    <h2>Mes notes personnelles</h2>
+
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('add_note') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <textarea name="content" maxlength="1000" required
+                  placeholder="Écris une note..."></textarea>
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <h2>Mes notes enregistrées</h2>
+
+    {% for note in notes %}
+        <div>
+            <p>{{ note["content"] }}</p>
+            <form method="POST"
+                  action="{{ url_for('delete_note', note_id=note['id']) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="submit">Supprimer</button>
+            </form>
+        </div>
+    {% else %}
+        <p>Tu n'as pas encore de notes.</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit">Se déconnecter</button>
+    </form>
+</body>
+</html>
